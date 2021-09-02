@@ -1,0 +1,17 @@
+{
+    "bookings": {
+        "column": {
+            "entity_id": true,
+            "firstname": true,
+            "lastname": true,
+            "email": true,
+            "telephone": true,
+            "dob": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

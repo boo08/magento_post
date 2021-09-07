@@ -1,0 +1,32 @@
+<?php
+$Bookings =$block->getBookings(); ?>
+<div><h1>Booking Lists
+<span style="float:right;font-size:20px;"><a href="<?=$block->getAddUrl() ?>">Add Booking</a></span> </h1>
+</div>
+
+<?php if (count($Bookings) > 0): ?>
+    <table border="1">
+        <tr>
+            <th><?= __("ID") ?></th>
+            <th><?= __("Name") ?></th>
+            <th><?= __("Email") ?></th>
+            <th><?= __("View/Edit/Delete") ?></th>
+        </tr>
+        <?php foreach ($Bookings as $booking): ?>
+            <tr>
+                <td><?= $booking->getEntityId() ?></td>
+                <td><?= $booking->getFirstname() . " " . $booking->getLastname() ?></td>
+                <td><?= $booking->getEmail() ?></td>
+                <td>
+                    <!-- todo Add the functionality of View,Edit and Delete booking -->
+                    <a href="<?=$block->getUrl("booking/index/view", ['id' => $booking->getEntity_id()])?>">View</a>/
+                    <a href="<?=$block->getUrl("booking/index/edit", ['id' => $booking->getEntity_id()])?>">Edit </a>/
+                    <a href="<?=$block->getUrl("booking/index/delete", ['id' => $booking->getEntityId()])?>">Delete </a>
+                </td>
+
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?>
+    <h1 style="color: red"><?= __("Bookings Not Available") ?></h1>
+<?php endif; ?>

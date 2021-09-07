@@ -1,0 +1,62 @@
+<?php
+$getModuleActive=$block->getModuleActive();
+
+if ($getModuleActive){
+?>
+
+<h1>Booking Page</h1>
+
+<form class="form" action="<?php echo $block->getFormAction() ?>" id="booking-form" method="post" >
+    <fieldset class="fieldset">
+
+        <div class="field name required">
+            <label class="label" for="name"><span>First Name</span></label>
+            <div class="control">
+                <input name="firstname" id="firstname" title="Firstname" value="" class="input-text" type="text" data-validate="{required:true,'minlength':5,'maxlength':15}" >
+            </div>
+        </div>
+        <div class="field name required">
+            <label class="label" for="name"><span>Last Name</span></label>
+            <div class="control">
+                <input name="lastname" id="lastname" title="Lastname" value="" class="input-text" type="text" data-validate="{required:true,'minlength':5,'maxlength':15}" >
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email"><span>Email</span></label>
+            <div class="control">
+                <input name="email" id="email" title="Email" value="" class="input-text " type="email" data-validate="{required:true, 'validate-email':true}" >
+            </div>
+        </div>
+        <div class="field telephone">
+            <label class="label" for="telephone"><span>Phone Number</span></label>
+            <div class="control">
+                <input name="telephone" id="telephone" title="Phone Number" value="" class="input-text" type="tel" data-validate="{required:true,'validate-phoneStrict':true}" >
+            </div>
+        </div>
+        <div class="field dob">
+            <label class="label" for="dob"><span>DOB</span></label>
+            <div class="control">
+                <input name="dob" id="dob" title="DOB" value="" class="input-text" type="date" data-validate="{required:true,'validate-dob':true}" >
+            </div>
+        </div>
+
+            </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span>Submit</span>
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+    {
+        "#booking-form": {
+            "validation": {}
+        }
+    }
+</script>
+<?php }else{    ?>
+    <h1> Module Not Enable </h1>
+<?php } ?>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Dckap\Trainee\Ui\DataProvider\Booking\ListingDataProvider">
+        <plugin name="dckap_trainee_attributes" type="Dckap\Trainee\Plugin\AddAttributesToUiDataProvider"/>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="booking_listing_data_source" xsi:type="string">DckapTraineeidBookingCollection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="DckapTraineeidBookingCollection" type="Dckap\Trainee\Ui\DataProvider\Booking\Listing\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">bookings</argument>
+            <argument name="resourceModel" xsi:type="string">Dckap\Trainee\Model\ResourceModel\Booking</argument>
+        </arguments>
+    </virtualType>
+</config>

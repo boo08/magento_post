@@ -5,7 +5,14 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::system">
                     <resource id="Dckap_Trainee::booking" title="Dckap" sortOrder="99">
-                        <resource id="Dckap_Trainee::booking_menu" title="Bookings" sortOrder="10"/>   
+                        <resource id="Dckap_Trainee::booking_menu" title="Bookings" sortOrder="10"/>
+                        <resource id="Dckap_Trainee::add" title="Add" sortOrder="20"/>
+                        <resource id="Dckap_Trainee::edit" title="Edit" sortOrder="30"/>
+                        <resource id="Dckap_Trainee::delete" title="Delete" sortOrder="10"/>
+                        <resource id="Dckap_Trainee::save" title="Save" sortOrder="10"/>
+                        <resource id="Dckap_Trainee::show" title="Show" sortOrder="10"/>
+                        <resource id="Dckap_Trainee::massdelete" title="Delete" sortOrder="10"/>
+
                     </resource>
                 </resource>
 

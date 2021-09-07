@@ -1,6 +1,7 @@
 <?php
 namespace Dckap\Trainee\Ui\DataProvider\Booking\Listing\Column;
 
+use Magento\Backend\Model\UrlInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\Url;
@@ -21,9 +22,9 @@ class Actions extends Column
     /**
      * Constructor
      *
-     * @param \Magento\Framework\View\Element\UiComponent\ContextInterface $context
-     * @param \Magento\Framework\View\Element\UiComponentFactory $uiComponentFactory
-     * @param \Magento\Framework\Url $urlBuilder
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param Url $urlBuilder
      * @param string $viewUrl
      * @param array $components
      * @param array $data

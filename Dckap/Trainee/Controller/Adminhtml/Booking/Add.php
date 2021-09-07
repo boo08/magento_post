@@ -6,13 +6,14 @@ namespace Dckap\Trainee\Controller\Adminhtml\Booking;
 use Dckap\Trainee\Model\BookingFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
 class Add extends Action
 {
 
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @var PageFactory
      */
     protected $Booking;
     protected $pageFactory;
@@ -36,12 +37,12 @@ class Add extends Action
     /**
      * Index action
      *
-     * @return \Magento\Framework\View\Result\Page
+     * @return Page
      */
     public function execute()
     {
         $resultPage = $this->pageFactory->create();
-        $resultPage->setActiveMenu('Magento_Catalog::catalog_products');
+        $resultPage->setActiveMenu('Dckap_Trainee::booking_menu');
         $title = __('Add Booking');
         $resultPage->getConfig()->getTitle()->prepend($title);
         return $resultPage;
@@ -52,6 +53,6 @@ class Add extends Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Dckap_Trainee::booking');
+        return $this->_authorization->isAllowed('Dckap_Trainee::add');
     }
 }

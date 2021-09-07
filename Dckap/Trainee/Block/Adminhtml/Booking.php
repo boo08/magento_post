@@ -1,17 +1,21 @@
 <?php
 namespace Dckap\Trainee\Block\Adminhtml;
 
+use Dckap\Trainee\Helper\Data;
+use Magento\Framework\View\Element\Template\Context;
+
 class Booking extends \Magento\Framework\View\Element\Template
 {
     protected $helperData;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param Context $context
+     * @param Data $helperData
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
-        \Dckap\Trainee\Helper\Data $helperData,
+        Context $context,
+        Data $helperData,
         array $data = []
     ) {
         $this->helperData = $helperData;

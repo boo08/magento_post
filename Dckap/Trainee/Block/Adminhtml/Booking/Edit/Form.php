@@ -128,7 +128,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'label' => __('DOB'),
                 'title' => __('Dob'),
                 'date_format' => 'yyyy-MM-dd',
-                'class' => 'required-entry validate-date validate-dob',
+                'class' => 'required-entry validate-dob',
                 'required' => true
             ]
         );

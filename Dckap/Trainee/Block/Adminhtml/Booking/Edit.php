@@ -40,8 +40,10 @@ class Edit extends Container
         $this->_controller = 'adminhtml_booking';
         parent::_construct();
         if ($this->_isAllowedAction('Dckap_Trainee::edit')) {
+            $this->buttonList->update('back', 'onclick', "setLocation('" . $this->getUrl('*/*/show') . "')");
             $this->buttonList->update('save', 'label', __('Save'));
         } else {
+            $this->buttonList->update('back', 'onclick', "setLocation('" . $this->getUrl('*/*/show') . "')");
             $this->buttonList->remove('save');
         }
         $this->buttonList->remove('reset');

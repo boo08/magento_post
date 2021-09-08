@@ -1,8 +1,8 @@
 <?php
 $getModuleActive=$block->getModuleActive();
 
-if ($getModuleActive){
-?>
+if ($getModuleActive) {
+    ?>
 
 <h1>Booking Page</h1>
 
@@ -36,7 +36,7 @@ if ($getModuleActive){
         <div class="field dob">
             <label class="label" for="dob"><span>DOB</span></label>
             <div class="control">
-                <input name="dob" id="dob" title="DOB" value="" class="input-text" type="date" data-validate="{required:true,'validate-dob':true}" >
+                <input name="dob" id="dob" title="DOB" value="" class="input-text " type="date" data-validate="{required:true,'validate-dob':true}" >
             </div>
         </div>
 
@@ -56,7 +56,10 @@ if ($getModuleActive){
             "validation": {}
         }
     }
+
+
 </script>
-<?php }else{    ?>
+<?php
+} else {    ?>
     <h1> Module Not Enable </h1>
 <?php } ?>

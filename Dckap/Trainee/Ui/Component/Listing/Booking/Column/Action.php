@@ -1,14 +1,15 @@
 <?php
-namespace Dckap\Trainee\Ui\DataProvider\Booking\Listing\Column;
+namespace Dckap\Trainee\Ui\Component\Listing\Booking\Column;
 
-use Magento\Backend\Model\UrlInterface;
-use Magento\Framework\View\Element\UiComponentFactory;
+use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
-use Magento\Framework\Url;
+use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 
-class Actions extends Column
+class Action extends Column
 {
+    /** Url path */
+    const ROW_EDIT_URL = 'booking/booking/edit';
     /**
      * @var UrlInterface
      */
@@ -17,28 +18,28 @@ class Actions extends Column
     /**
      * @var string
      */
-    protected $_viewUrl;
+    protected $_editUrl;
 
     /**
      * Constructor
      *
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
-     * @param Url $urlBuilder
-     * @param string $viewUrl
+     * @param UrlInterface $urlBuilder
+     * @param string $_editUrl
      * @param array $components
      * @param array $data
      */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
-        Url $urlBuilder,
-        $viewUrl = '',
+        UrlInterface $urlBuilder,
+        $_editUrl = self::ROW_EDIT_URL,
         array $components = [],
         array $data = []
     ) {
         $this->_urlBuilder = $urlBuilder;
-        $this->_viewUrl    = $viewUrl;
+        $this->_editUrl    = $_editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -56,13 +57,11 @@ class Actions extends Column
             foreach ($dataSource['data']['items'] as &$item) {
                 $name = $this->getData('name');
                 if (isset($item['entity_id'])) {
-//                    $item[$name]['view']   = [
-//                        'href'  => $this->_urlBuilder->getUrl("booking/index/view", ['id' => $item['entity_id']]),
-//                        'target' => '_blank',
-//                        'label' => __('View on Frontend')
-//                    ];
                     $item[$name]['edit']   = [
-                        'href'  => $this->_urlBuilder->getUrl("booking/booking/edit", ['id' => $item['entity_id'], 'store' => $storeId]),
+                        'href'  => $this->_urlBuilder->getUrl(
+                            $this->_editUrl,
+                            ['id' => $item['entity_id'], 'store' => $storeId]
+                        ),
                         'label' => __('Edit'),
                         'hidden' => false,
                     ];

@@ -43,7 +43,7 @@ class Save extends \Magento\Backend\App\Action
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));
         }
-        $this->_redirect('grid/grid/index');
+        $this->_redirect('booking/booking/show');
     }
 
     /**

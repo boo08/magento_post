@@ -1,64 +1,45 @@
 <?php
 namespace Dckap\Trainee\Controller\Adminhtml\Booking;
 
-use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\Controller\ResultFactory;
+use Dckap\Trainee\Model\BookingFactory;
+use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Ui\Component\MassAction\Filter;
-use Dckap\Trainee\Model\ResourceModel\Booking\Collection;
 
-class MassDelete extends \Magento\Backend\App\Action
+class MassDelete extends Action
 {
-    /**
-     * Malefactions filter.​_
-     * @var Filter
-     */
-    protected $_filter;
 
     /**
-     * @var Collection
+     * @var BookingFactory
      */
-    protected $_collectionFactory;
-    /**
-     * @var ResultFactory
-     */
-    protected $_resultFactory;
+    private $_BookingFactory;
 
     /**
      * @param Context $context
-     * @param Filter $filter
-     * @param Collection $collectionFactory
-     * @param ResultFactory $ResultFactory
+     * @param BookingFactory $BookingFactory
      */
     public function __construct(
         Context $context,
-        Filter $filter,
-        Collection $collectionFactory,
-        ResultFactory $ResultFactory
-
+        BookingFactory $BookingFactory
     ) {
-
-        $this->_filter = $filter;
-        $this->_collectionFactory = $collectionFactory;
-        $this->_resultFactory = $ResultFactory;
+        $this->_BookingFactory = $BookingFactory;
         parent::__construct($context);
     }
 
-    /**
-     * @return Redirect
-     */
+
     public function execute()
     {
-        $collection = $this->_filter->getCollection($this->_collectionFactory->create());
-        $recordDeleted = 0;
-        foreach ($collection->getItems() as $record) {
-            $record->setId($record->getEntityId());
-            $record->delete();
-            $recordDeleted++;
+        $data = $this->getRequest()->getPostValue();
+        $selectedIds = $data['selected'];
+        try {
+            foreach ($selectedIds as $selectedId) {
+                $deleteData = $this->_BookingFactory->create()->load($selectedId);
+                $deleteData->delete();
+            }
+            $this->messageManager->addSuccess(__('Row data has been successfully deleted.'));
+        } catch (\Exception $e) {
+            $this->messageManager->addError(__($e->getMessage()));
         }
-        $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been deleted.', $recordDeleted));
-
-        return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath('*/*/show');
+        $this->_redirect('booking/booking/show');
     }
 
     /**

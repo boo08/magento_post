@@ -4,6 +4,7 @@ namespace Dckap\Trainee\Controller\Adminhtml\Booking;
 use Dckap\Trainee\Model\BookingFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
@@ -17,6 +18,7 @@ class Edit extends Action
      * @var BookingFactory
      */
     private $_Booking;
+    private $coreRegistry;
 
     /**
      * @param Context $context
@@ -38,21 +40,23 @@ class Edit extends Action
      *
      * @return Page
      */
-    public function execute():Page
+    public function execute()
     {
-        $resultPage = $this->_pageFactory->create();
-        $resultPage->setActiveMenu('Dckap_Trainee::booking_menu');
-        $rowId = (int)$this->getRequest()->getParam('id');
-        $rowData = '';
-
+        $rowId = (int) $this->getRequest()->getParam('id');
+        $rowData = $this->_Booking->create();
+        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         if ($rowId) {
-            $rowData = $this->_Booking->create()->load($rowId);
-            if (!$rowData->getId()) {
-                $this->messageManager->addSuccessMessage(__('row data no longer exist.'));
-                $this->_redirect('booking/booking/show');
+            $rowData = $rowData->load($rowId);
+            $rowTitle = $rowData->getTitle();
+            if (!$rowData->getEntityId()) {
+                $this->messageManager->addError(__('row data no longer exist.'));
+                $this->_redirect('grid/grid/rowdata');
+                return;
             }
         }
-        $title = $rowId ? __('Edit Booking ') : __('Add Booking');
+
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $title = $rowId ? __('Edit Row Data ') . $rowTitle : __('Add Row Data');
         $resultPage->getConfig()->getTitle()->prepend($title);
         return $resultPage;
     }

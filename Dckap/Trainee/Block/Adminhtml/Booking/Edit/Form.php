@@ -2,7 +2,9 @@
 
 namespace Dckap\Trainee\Block\Adminhtml\Booking\Edit;
 
+use Dckap\Trainee\Model\BookingFactory;
 use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Model\View\Result\Page;
 use Magento\Cms\Model\Wysiwyg\Config;
 use Magento\Framework\Data\FormFactory;
 use Magento\Framework\Exception\LocalizedException;
@@ -20,28 +22,31 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
      */
     protected $_systemStore;
 
-
     /**
      * @var Config
      */
     private $_wysiwygConfig;
+    /**
+     * @var BookingFactory
+     */
+    private $_Booking;
 
     /**
      * Form constructor.
      * @param Context $context
      * @param Registry $registry
+     * @param BookingFactory $BookingFactory
      * @param FormFactory $formFactory
-     * @param Config $wysiwygConfig
      * @param array $data
      */
     public function __construct(
         Context $context,
         Registry $registry,
+        BookingFactory $BookingFactory,
         FormFactory $formFactory,
-        Config $wysiwygConfig,
         array $data = []
     ) {
-        $this->_wysiwygConfig = $wysiwygConfig;
+        $this->_Booking = $BookingFactory;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
@@ -51,10 +56,15 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
      */
     protected function _prepareForm()
     {
-        $model = $this->_coreRegistry->registry('row_data');
-        $form = $this->_formFactory->create(['data' => ['id' => 'edit_form', 'enctype' => 'multipart/form-data', 'action' => $this->getData('action'), 'method' => 'post']]);
+        $model='';
+        $rowId = (int) $this->getRequest()->getParam('id');
+        $rowData = $this->_Booking->create();
+        /** @var Page $resultPage */
+
+        $form = $this->_formFactory->create(['data' => ['id' => 'edit_form', 'enctype' => 'multipart/form-data', 'action' => $this->getData('action'), 'method' => 'post','data-mage-init'=>'{"validation":{"rules": {"firstname": {required:true,\'minlength\':5,\'maxlength\':15}}}}']]);
         $form->setHtmlIdPrefix('dckap_trainee');
-        if ($model) {
+        if ($rowId) {
+            $model = $rowData->load($rowId);
             $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Booking Details'), 'class' => 'fieldset-wide']);
             $fieldset->addField('entity_id', 'hidden', ['name' => 'entity_id']);
         } else {
@@ -67,9 +77,10 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'name' => 'firstname',
                 'label' => __('First Name'),
                 'title' => __('First Name'),
-                'class' => 'required-entry',
+                'class' => 'required-entry max_text_length',
+                'minlength'=>5,
+                'maxlength'=>15,
                 'required' => true,
-                'disabled' => $model ? true : false,
             ]
         );
 
@@ -80,9 +91,10 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'name' => 'lastname',
                 'label' => __('Last Name'),
                 'title' => __('Last Name'),
-                'class' => 'required-entry',
+                'class' => 'required-entry max_text_length ',
+                'minlength'=>5,
+                'maxlength'=>15,
                 'required' => true,
-                'disabled' => $model ? true : false,
             ]
         );
         $fieldset->addField(
@@ -92,21 +104,32 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'name' => 'email',
                 'label' => __('Email'),
                 'title' => __('Email'),
-                'class' => 'required-entry',
+                'class' => 'required-entry validate-email',
                 'required' => true,
                 'disabled' => $model ? true : false,
             ]
         );
         $fieldset->addField(
-            'dob',
+            'telephone',
             'text',
+            [
+                'name' => 'telephone',
+                'label' => __('Phone'),
+                'title' => __('Phone'),
+                'class' => 'required-entry validate-phoneStrict',
+                'required' => true,
+            ]
+        );
+        $fieldset->addField(
+            'dob',
+            'date',
             [
                 'name' => 'dob',
                 'label' => __('DOB'),
                 'title' => __('Dob'),
-                'class' => 'required-entry',
-                'required' => true,
-                'disabled' => $model ? true : false,
+                'date_format' => 'yyyy-MM-dd',
+                'class' => 'required-entry validate-date validate-dob',
+                'required' => true
             ]
         );
 

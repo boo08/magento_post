@@ -7,9 +7,12 @@
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="booking_listing_data_source" xsi:type="string">DckapTraineeidBookingCollection</item>
+                <item name="booking_form_data_source" xsi:type="string">DckapTraineeBookingFormCollection</item>
+
             </argument>
         </arguments>
     </type>
+
     <virtualType name="DckapTraineeidBookingCollection" type="Dckap\Trainee\Ui\DataProvider\Booking\Listing\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">bookings</argument>

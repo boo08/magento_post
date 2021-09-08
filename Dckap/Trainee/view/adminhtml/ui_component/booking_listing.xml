@@ -17,7 +17,7 @@
     </argument>
     <dataSource name="booking_listing_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">Dckap\Trainee\Ui\DataProvider\Booking\ListingDataProvider</argument>
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
             <argument name="name" xsi:type="string">booking_listing_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
             <argument name="requestFieldName" xsi:type="string">entity_id</argument>
@@ -121,10 +121,14 @@
                 <label translate="true">Created</label>
             </settings>
         </column>
-        <actionsColumn name="actions" class="Dckap\Trainee\Ui\DataProvider\Booking\Listing\Column\Actions" sortOrder="200">
-            <settings>
-                <indexField>entity_id</indexField>
-            </settings>
+        <actionsColumn name="actions" class="Dckap\Trainee\Ui\Component\Listing\Booking\Column\Action">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
         </actionsColumn>
     </columns>
 </listing>

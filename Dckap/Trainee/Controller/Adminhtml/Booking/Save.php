@@ -3,25 +3,34 @@
 namespace Dckap\Trainee\Controller\Adminhtml\Booking;
 
 use Dckap\Trainee\Model\BookingFactory;
+use Dckap\Trainee\Model\ResourceModel\Booking;
+use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 
-class Save extends \Magento\Backend\App\Action
+class Save extends Action
 {
     /**
      * @var BookingFactory
      */
     public $bookingFactory;
+    /**
+     * @var Booking
+     */
+    private $booking;
 
     /**
      * @param Context $context
      * @param BookingFactory $bookingFactory
+     * @param Booking $booking
      */
     public function __construct(
         Context $context,
-        BookingFactory $bookingFactory
+        BookingFactory $bookingFactory,
+        Booking $booking
     ) {
         parent::__construct($context);
         $this->bookingFactory = $bookingFactory;
+        $this->booking = $booking;
     }
 
 
@@ -38,7 +47,7 @@ class Save extends \Magento\Backend\App\Action
             if (isset($data['id'])) {
                 $rowData->setEntityId($data['id']);
             }
-            $rowData->save();
+            $this->booking->save($rowData);
             $this->messageManager->addSuccessMessage(__('Row data has been successfully saved.'));
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));

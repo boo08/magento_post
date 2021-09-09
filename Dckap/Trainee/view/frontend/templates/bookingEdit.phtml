@@ -1,9 +1,14 @@
-<h1>Booking Edit Page</h1>
-<?php $booking =$block->getBooking(); ?>
+<?php
+/** @var $viewModel \Dckap\Trainee\ViewModel\BookingEdit */
 
-<form class="form" action="<?php echo $block->getFormAction() ?>id/<?=$booking['entity_id']?>" id="booking-form" method="post" >
+$viewModel = $block->getViewModel();
+$booking =$viewModel->getBooking();
+?>
+<h1>Booking Edit Page</h1>
+
+<form class="form" action="<?php echo $block->getUrl("booking/index/edit", ['id' => $booking['entity_id']])?>" id="booking-form" method="post" >
     <fieldset class="fieldset">
-      
+
         <div class="field name required">
             <label class="label" for="name"><span>First Name</span></label>
             <div class="control">
@@ -34,7 +39,7 @@
                 <input name="dob" id="dob" title="DOB" value="<?=$booking['dob']?>" class="input-text" type="date" data-validate="{required:true,'validate-dob':true}" >
             </div>
         </div>
-   
+
             </fieldset>
     <div class="actions-toolbar">
         <div class="primary">

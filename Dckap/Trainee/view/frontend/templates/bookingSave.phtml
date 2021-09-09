@@ -1,12 +1,14 @@
 <?php
-$getModuleActive=$block->getModuleActive();
+/** @var $viewModel \Dckap\Trainee\ViewModel\Booking */
 
+$viewModel = $block->getViewModel();
+$getModuleActive=$viewModel->getModuleActive();
 if ($getModuleActive) {
     ?>
 
 <h1>Booking Page</h1>
 
-<form class="form" action="<?php echo $block->getFormAction() ?>" id="booking-form" method="post" >
+<form class="form" action="<?=$block->getUrl("booking/index/save")?>" id="booking-form" method="post" >
     <fieldset class="fieldset">
 
         <div class="field name required">

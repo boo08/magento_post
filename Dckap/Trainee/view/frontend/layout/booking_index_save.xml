@@ -3,7 +3,11 @@
     <body>
         <referenceBlock name="navigation.sections" remove="true" />
         <referenceContainer name="content">
-            <block class="Dckap\Trainee\Block\Booking" name="booking.save" template="Dckap_Trainee::bookingSave.phtml"/>
+            <block name="booking.booking.save" template="Dckap_Trainee::bookingSave.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Dckap\Trainee\ViewModel\Booking</argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>

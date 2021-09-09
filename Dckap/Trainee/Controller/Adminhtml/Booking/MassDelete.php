@@ -2,6 +2,7 @@
 namespace Dckap\Trainee\Controller\Adminhtml\Booking;
 
 use Dckap\Trainee\Model\BookingFactory;
+use Dckap\Trainee\Model\ResourceModel\Booking;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 
@@ -12,19 +13,25 @@ class MassDelete extends Action
      * @var BookingFactory
      */
     private $_BookingFactory;
+    /**
+     * @var Booking
+     */
+    private $_Booking;
 
     /**
      * @param Context $context
      * @param BookingFactory $BookingFactory
+     * @param Booking $Booking
      */
     public function __construct(
         Context $context,
-        BookingFactory $BookingFactory
+        BookingFactory $BookingFactory,
+        Booking $Booking
     ) {
         $this->_BookingFactory = $BookingFactory;
+        $this->_Booking = $Booking;
         parent::__construct($context);
     }
-
 
     public function execute()
     {
@@ -32,13 +39,15 @@ class MassDelete extends Action
         $selectedIds = $data['selected'];
         try {
             foreach ($selectedIds as $selectedId) {
-                $deleteData = $this->_BookingFactory->create()->load($selectedId);
+                $deleteData = $this->_BookingFactory->create();
+                $deleteData->load($selectedId);
                 $deleteData->delete();
             }
-            $this->messageManager->addSuccess(__('Row data has been successfully deleted.'));
+            $this->messageManager->addSuccessMessage(__('Row data has been successfully deleted.'));
         } catch (\Exception $e) {
-            $this->messageManager->addError(__($e->getMessage()));
+            $this->messageManager->addErrorMessage(__($e->getMessage()));
         }
+
         $this->_redirect('booking/booking/show');
     }
 

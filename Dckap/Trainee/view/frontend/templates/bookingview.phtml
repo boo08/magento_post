@@ -1,6 +1,10 @@
-<h1>Booking View Page</h1>
-<?php $booking =$block->getBooking(); 
+<?php
+/** @var $viewModel \Dckap\Trainee\ViewModel\BookingEdit */
+
+$viewModel = $block->getViewModel();
+$booking =$viewModel->getBooking();
 ?>
+<h1>Booking View Page</h1>
 <div> <b>First Name: </b> <span><?=$booking['firstname']?></span></div>
 <div> <b>Last Name: </b> <span><?=$booking['lastname']?></span></div>
 <div> <b>Email: </b> <span><?=$booking['email']?></span></div>

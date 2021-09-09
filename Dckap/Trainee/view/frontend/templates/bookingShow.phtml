@@ -1,7 +1,10 @@
 <?php
-$Bookings =$block->getBookings(); ?>
+/** @var $viewModel \Dckap\Trainee\ViewModel\BookingShow */
+
+$viewModel = $block->getViewModel();
+$Bookings =$viewModel->getBookings(); ?>
 <div><h1>Booking Lists
-<span style="float:right;font-size:20px;"><a href="<?=$block->getAddUrl() ?>">Add Booking</a></span> </h1>
+<span style="float:right;font-size:20px;"><a href="<?=$block->getUrl("booking/index/save")?>">Add Booking</a></span> </h1>
 </div>
 
 <?php if (count($Bookings) > 0): ?>

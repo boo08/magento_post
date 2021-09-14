@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+        <!-- for diffrentiate layout.xml on product basis -->
+        <event name="catalog_controller_product_view">
+            <observer name="change_product_name" instance="Dckap\Trainee\Observer\ChangeProductName" />
+        </event>
+    </config>
